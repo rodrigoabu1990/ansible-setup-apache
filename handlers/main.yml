@@ -1,0 +1,6 @@
+#Task que responde a um evento (stop, start e etc).
+---
+- name: restart apache
+  service:
+    name: "{{ apache_service }}"
+    state: "{{ apache_restart_state }}"

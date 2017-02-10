@@ -1,0 +1,49 @@
+---
+- hosts: servidor
+  vars:
+  remote_user: root
+  tasks:
+  
+
+#  - name: Ensure Apache is installed on CentOS.
+#    yum:
+#      name: httpd
+#      state: latest
+#      enablerepo: testing    
+  - name: Enable Apache as a CentOS after a reboot
+    command: systemctl enable httpd.service
+  - name: write the apache config file
+    template:
+      src: /etc/ansible/apache/templates/httpd.j2
+      dest: /etc/httpd.conf
+  - name: Creates directory Structure
+    file: 
+      path: /var/www/example.com/public_html
+      state: directory 
+      owner: root 
+      group: root 
+      mode: 0775 
+      recurse: yes
+
+  - name: Creates directory sites-available
+    file: 
+      path: /etc/httpd/sites-available
+      state: directory 
+      owner: root 
+      group: root 
+      mode: 0775 
+      recurse: yes
+  - name: Creates directory sites-enabled
+    file: 
+      path: /etc/httpd/sites-enabled
+      state: directory 
+      owner: root 
+      group: root 
+      mode: 0775 
+      recurse: yes
+#    notify:
+#    - restart apache
+
+
+
+
